@@ -20,12 +20,15 @@ pipeline {
         //         }
         //     }
         // }
-
         stage ('Docker Build Push') {
-            docker.withRegistry ('https://registry.hub.docker.com','dockerhubregistry') {
-                def customImage = docker.build("${dockerimagename}:${env.BUILD_ID}")
-                customImage.push()
+            steps {
+                scripts {
+                    docker.withRegistry ('https://registry.hub.docker.com','dockerhubregistry') {
+                        def customImage = docker.build("${dockerimagename}:${env.BUILD_ID}")
+                        customImage.push()
+                        }
                 }
+            }
         }
     }
 }
