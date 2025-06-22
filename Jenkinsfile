@@ -22,7 +22,7 @@ pipeline {
         // }
         stage ('Docker Build Push') {
             steps {
-                scripts {
+                script {
                     docker.withRegistry ('https://registry.hub.docker.com','dockerhubregistry') {
                         def customImage = docker.build("${dockerimagename}:${env.BUILD_ID}")
                         customImage.push()
